@@ -13,6 +13,17 @@ use Yii;
  */
 class Notification extends \yii\db\ActiveRecord
 {
+    const type = [
+        'user' => '1',
+        'group' => '2'
+    ];
+    public static function getTypes()
+    {
+        return [
+            '1' => Module::t('User'),
+            '2' => Module::t('Group')
+        ];
+    }
     /**
      * {@inheritdoc}
      */
