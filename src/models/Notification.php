@@ -8,7 +8,6 @@ use Yii;
  * This is the model class for table "notification_notification".
  *
  * @property int $id_notification
- * @property int $id_message
  * @property int $type
  * @property int $id_to
  */
@@ -28,8 +27,8 @@ class Notification extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_message', 'type', 'id_to'], 'required'],
-            [['id_message', 'type', 'id_to'], 'integer'],
+            [['type', 'id_to'], 'required'],
+            [['type', 'id_to'], 'integer'],
         ];
     }
 
@@ -40,7 +39,6 @@ class Notification extends \yii\db\ActiveRecord
     {
         return [
             'id_notification' => 'Id Notification',
-            'id_message' => 'Id Message',
             'type' => 'Type',
             'id_to' => 'Id To',
         ];
