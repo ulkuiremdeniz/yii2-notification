@@ -10,6 +10,8 @@ use Yii;
  * @property int $id_notification
  * @property int $type
  * @property int $id_to
+ * @property string $text
+ * @property string $title
  */
 class Notification extends \yii\db\ActiveRecord
 {
@@ -38,8 +40,9 @@ class Notification extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'id_to'], 'required'],
+            [['type', 'id_to', 'text', 'title'], 'required'],
             [['type', 'id_to'], 'integer'],
+            [['text', 'title'], 'string'],
         ];
     }
 
@@ -52,6 +55,8 @@ class Notification extends \yii\db\ActiveRecord
             'id_notification' => 'Id Notification',
             'type' => 'Type',
             'id_to' => 'Id To',
+            'text' => 'Text',
+            'title' => 'Title',
         ];
     }
 }
