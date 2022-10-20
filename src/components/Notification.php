@@ -10,34 +10,34 @@ class Notification extends Component
     public function addNotification($type,$id_to,$text,$title)
     { 
         $model = new Notification();
-         if($type = '1')
-         {
-            // findReceiver fonksiyonu ile user_id var mı diye kontrol et
-             $model->type = $this->type;
-             $model->id_to = $this->id_to;
-             $model->text = $this->text; 
-             $model->title = $this->title; 
-             $model->save();
-         }
-         else if($type= '2')
-         {
-            // findReceiver fonksiyonu ile group_id var mı diye kontrol et
-             $model->type = $this->type;
-             $model->id_to = $this->id_to;
-             $model->text = $this->text; 
-             $model->title = $this->title;    
-             $model->save();
-         }
-         else
-         {
-             echo "Wrong Type";
-             exit;
-         }
+
+        $model->load();
+        $model->save();
     }
 
-    public function findReceiver($type,$id_to)
+    public function denemegetNotification($id_user)  
     {
-        //if ile gelen type bilgisine göre userid veya group id mevcut mu kontrolü yapacak.
+        $notifications = Notification::findAll($id_user);
+        return $notifications;
     }
+
+    public function getNotification($id_user)  
+    {
+        $bildirim = Notification::find()->all();
+
+        foreach($bildirim as $notifications)
+        {
+            if($notifications->$id_to == $id_user && $notifications->$type == '1') 
+            {
+                return $notifications;
+            }
+            else if($notifications->$type == '2') //user'id o grupta var mı diye bak ve notificationu döndür
+            {
+
+            }
+
+        }
+    }
+
 }
 ?>

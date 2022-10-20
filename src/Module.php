@@ -24,4 +24,13 @@ class Module extends \portalium\base\Module
     {
         return parent::coreT('notification', $message, $params);
     }
+
+    public function registerComponents()
+    {
+        return [
+            'notification' => [
+                'class' => 'portalium\notification\components\Notification',
+            ]
+        ];
+    }
 }

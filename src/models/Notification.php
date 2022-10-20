@@ -15,7 +15,7 @@ use Yii;
  */
 class Notification extends \yii\db\ActiveRecord
 {
-    const type = [
+    const TYPE = [
         'user' => '1',
         'group' => '2'
     ];
