@@ -3,6 +3,7 @@
 namespace portalium\site\components;
 
 use yii\base\Component;
+use portalium\user\models\User;
 
 class Notification extends Component
 {
@@ -10,7 +11,6 @@ class Notification extends Component
     public function addNotification($type,$id_to,$text,$title)
     { 
         $model = new Notification();
-
         $model->load();
         $model->save();
     }
@@ -23,7 +23,15 @@ class Notification extends Component
 
     public function getNotification($id_user)  
     {
-        $bildirim = Notification::find()->all();
+        $modelUser = User::findOne(['id_user' => $id_user]);  // modelUser değişkenine User tablosundan modeli bulup atadık
+
+        $user_grupları = $modelUser->getGroups(); // user_grupları değişkenine dizi şeklinde 
+
+        var_dump($user_grupları);
+        exit;
+
+        $bildirimler = Notification::find()->where(/*yazılacak*/)->all();  // tüm bildirimleri aldık
+
 
         foreach($bildirim as $notifications)
         {
