@@ -13,6 +13,7 @@ class Module extends \portalium\base\Module
         ],
     ];
     
+	public static $tablePrefix = 'notification_';
     public static function moduleInit()
     {
         self::registerTranslation('notification','@portalium/notification/messages',[

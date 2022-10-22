@@ -3,6 +3,7 @@
 namespace portalium\notification\models;
 
 use Yii;
+use portalium\notification\Module;
 
 /**
  * This is the model class for table "notification_read".
@@ -18,7 +19,7 @@ class NotificationRead extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'notification_read';
+        return '{{' . Module::$tablePrefix . 'read}}';
     }
 
     /**
