@@ -13,6 +13,7 @@ class Module extends \portalium\base\Module
         ],
     ];
     
+	public static $tablePrefix = 'notification_';
     public static function moduleInit()
     {
         self::registerTranslation('notification','@portalium/notification/messages',[
@@ -23,5 +24,14 @@ class Module extends \portalium\base\Module
     public static function t($message, array $params = [])
     {
         return parent::coreT('notification', $message, $params);
+    }
+
+    public function registerComponents()
+    {
+        return [
+            'notification' => [
+                'class' => 'portalium\notification\components\Notification',
+            ]
+        ];
     }
 }
