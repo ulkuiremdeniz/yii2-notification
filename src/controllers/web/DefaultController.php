@@ -2,6 +2,7 @@
 
 namespace portalium\notification\controllers\web;
 
+use portalium\menu\Module;
 use portalium\notification\models\Notification;
 use portalium\notification\models\NotificationSearch;
 use portalium\web\Controller;
@@ -38,8 +39,16 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+
+        if (!\Yii::$app->user->can('notificationWebDefaultIndex') ) {
+            throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
+        }
+
         $searchModel = new NotificationSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        if(!\Yii::$app->user->can('notificationWebDefaultIndex'))
+            $dataProvider->query->andWhere(['id_user'=>\Yii::$app->user->id]);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -53,12 +62,15 @@ class DefaultController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id_notification)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id_notification),
-        ]);
-    }
+//    public function actionView($id_notification)
+//    {
+//        if (!\Yii::$app->user->can('notificationWebDefault', ['model' => $this->findModel($id)])) {
+//            throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
+//        }
+//        return $this->render('view', [
+//            'model' => $this->findModel($id_notification),
+//        ]);
+//    }
 
     /**
      * Creates a new Notification model.
@@ -67,6 +79,10 @@ class DefaultController extends Controller
      */
     public function actionCreate()
     {
+
+        if (!\Yii::$app->user->can('notificationWebDefaultCreate')) {
+            throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
+        }
         $model = new Notification();
 
         if ($this->request->isPost) {
@@ -91,6 +107,9 @@ class DefaultController extends Controller
      */
     public function actionUpdate($id_notification)
     {
+        if (!\Yii::$app->user->can('notificationWebDefaultUpdate', ['model' => $this->findModel($id_notification)])) {
+            throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
+        }
         $model = $this->findModel($id_notification);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -111,6 +130,9 @@ class DefaultController extends Controller
      */
     public function actionDelete($id_notification)
     {
+        if (!\Yii::$app->user->can('notificationWebDefaultDelete', ['model' => $this->findModel($id_notification)])) {
+            throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
+        }
         $this->findModel($id_notification)->delete();
 
         return $this->redirect(['index']);

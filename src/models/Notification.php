@@ -30,6 +30,8 @@ class Notification extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    //tablo adını döndürüyor
     public static function tableName()
     {
         return '{{' . Module::$tablePrefix . 'notification}}';

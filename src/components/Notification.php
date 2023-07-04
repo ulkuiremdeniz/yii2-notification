@@ -8,6 +8,13 @@ use portalium\user\models\User;
 class Notification extends Component
 {
 
+    //type : user mı group mu kim
+    //id_to : bildirimlerin hedef aldığı kullanıcıları veya hedefi belirler.
+    //text : bildirim mesajı
+    //title bildirim başlığı
+
+
+
     public function addNotification($type,$id_to,$text,$title)
     { 
         $model = new Notification();

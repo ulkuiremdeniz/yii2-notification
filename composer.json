@@ -18,5 +18,10 @@
 		"psr-4" : {
 			"portalium\\notification\\" : "src/"
 		}
+	},
+	"require": {
+		"portalium/yii2-user": "*",
+		"portalium/yii2-site": "*",
+		"portalium/yii2-workspace": "*"
 	}
 }
