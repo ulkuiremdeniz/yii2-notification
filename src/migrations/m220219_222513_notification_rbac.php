@@ -2,43 +2,52 @@
 
 class m220219_222513_notification_rbac
 {
+
+    //up metotu veritabanına yetkilendirme verilerini ekler
     public function up(){
 
+        //yii nin yetkilendirme yöneticisini auth değişkenine atıyoruz
         $auth = Yii::$app->authManager;
 
+        //admin rolu belirledik
         $role1 = Yii::$app->setting->getValue('site::admin_role');
         $admin = (isset($role1) && $role1 != '') ? $auth->getRole($role1) : $auth->getRole('admin');
 
+        //kullanıcı rolü belirledik
         $role2 = Yii::$app->setting->getValue('site::user_role');
         $user = (isset($role2) && $role2 != '') ? $auth->getRole($role2) : $auth->getRole('user');
 
+        //izinlerin tanımlanması ataması yapılıyor
+
+        //görüntüleme izni tanımlandı ve admine atandı
         $notificationWebDefaultIndex = $auth->createPermission('notificationWebDefaultIndex');
         $notificationWebDefaultIndex->description = 'Notification Web Default Index';
         $auth->add($notificationWebDefaultIndex);
         $auth->addChild($admin, $notificationWebDefaultIndex);
 
 
-
+        //oluşturma izni tanımlandı ve admine atandı
         $notificationWebDefaultCreate = $auth->createPermission('notificationWebDefaultCreate');
         $notificationWebDefaultCreate->description = 'Notification Web Default Index';
         $auth->add($notificationWebDefaultCreate);
         $auth->addChild($admin, $notificationWebDefaultCreate);
 
-
+        //silme izni tanımlandı ve usera atandı
         $notificationWebDefaultDelete = $auth->createPermission('notificationWebDefaultDelete');
         $notificationWebDefaultDelete->description = 'Notification Web Default Delete';
         $auth->add($notificationWebDefaultDelete);
         $auth->addChild($user, $notificationWebDefaultDelete);
 
-
+       //guncelleme izni tanımlandı ve admine atandı
         $notificationWebDefaultUpdate = $auth->createPermission('$notificationWebDefaultUpdate');
         $notificationWebDefaultUpdate->description = 'Notification Web Default update';
         $auth->add($notificationWebDefaultUpdate);
-        //$auth->addChild($admin, $notificationWebDefaultUpdate);
+        $auth->addChild($admin, $notificationWebDefaultUpdate);
 
     }
 
 
+    //down metotu yetkileri geri alır
     public function down(){
 
         $auth = Yii::$app->authManager;

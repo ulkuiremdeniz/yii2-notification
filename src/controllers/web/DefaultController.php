@@ -40,15 +40,17 @@ class DefaultController extends Controller
     public function actionIndex()
     {
 
+        $searchModel = new NotificationSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
         if (!\Yii::$app->user->can('notificationWebDefaultIndex') ) {
             throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
         }
 
-        $searchModel = new NotificationSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-        if(!\Yii::$app->user->can('notificationWebDefaultIndex'))
-            $dataProvider->query->andWhere(['id_user'=>\Yii::$app->user->id]);
 
+       /* if(!\Yii::$app->user->can('notificationWebDefaultIndex'))
+            $dataProvider->query->andWhere(['id_user'=>\Yii::$app->user->id]);
+*/
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -151,6 +153,6 @@ class DefaultController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(\portalium\content\Module::t('The requested page does not exist.'));
     }
 }
